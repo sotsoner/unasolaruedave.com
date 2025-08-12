@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combo Emprendedor - Venta de Rifas</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2c2b2b;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .rifa-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 5px;
+        }
+        
+        .ticket-options {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .ticket-btn {
+            width: 18%;
+            padding: 15px 0;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .ticket-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .calculator-row {
+            display: flex;
+            align-items: center;
+        }
+        
+        .calculator-label {
+            width: 150px;
+            font-weight: bold;
+        }
+        
+        .calculator-input {
+            flex-grow: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            margin: 0 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .total-display {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background-color: #219653;
+        }
+        
+        .file-upload {
+            margin-top: 5px;
+        }
+        
+        .highlight {
+            background-color: #fffde7;
+            padding: 15px;
+            border-left: 4px solid #ffd600;
+            margin: 20px 0;
+        }
+        
+        .warning {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .ticket-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        .section {
+        max-width: 800px;
+        min-width: 300px;
+        margin: 20px auto;
+        width: 90%;
+    }
+    
+    #rifa-image-container {
+        max-height: 400px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .rifa-image {
+        max-height: 100%;
+        width: auto;
+        max-width: 100%;
+    }
+    
+    .ticket-options {
+        max-width: 700px;
+        margin: 20px auto;
+    }
+    
+    .calculator {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    #purchase-form {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    @media (max-width: 600px) {
+        .section {
+            width: 95%;
+            padding: 15px;
+        }
+        
+        .ticket-btn {
+            padding: 10px 0;
+            font-size: 1em;
+        }
+    }
+    #payment-details-container {
+    transition: all 0.3s ease;
+    border-left: 4px solid #3498db;
+}
+
+#payment-details-content p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.warning {
+    color: #e74c3c;
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
+    </style>
+</head>
+<body>
+    <img src="img/WhatsApp Image 2025-08-08 at 3.44.46 PM.jpeg" alt="logo" class="rifa-image">
+    <header>
+        <h1>COMBO EMPRENDEDOR</h1>
+    </header>
+    
+    <div class="section">
+        <h2>DETALLES DE LA RIFA</h2>
+        <div id="rifa-image-container">
+            <!-- Aquí se puede colocar una imagen -->
+            <img src="img/WhatsApp Image 2025-08-08 at 3.49.08 PM.jpeg" alt="Premio de la rifa" class="rifa-image">
+        </div>
+        <p>01 CARRYING N822 año 2025 + 05 Motos Empire</p>
+        <p>Precio por ticket: $15.00</p>
+    </div>
+    
+    <div class="section">
+        <h2>VERIFICA TUS TICKETS</h2>
+        <div class="highlight">
+            <p><span class="warning">SOPORTE TIENE 24 hrs PARA RESPONDERTE Y APROBAR TU COMPRA</span></p>
+            <p>¿No recibiste tus tickets por correo? ¡VERIFÍCALOS AQUÍ!</p>
+            <p>Simplemente ingresa el correo electrónico que usaste para la compra en el campo de abajo y haz clic en "Verificar Tickets" para ver los números asociados a tu participación en esta rifa.</p>
+            
+            <div class="form-group">
+                <label for="verify-email">Correo electrónico:</label>
+                <input type="email" id="verify-email" placeholder="Ingresa tu correo electrónico">
+            </div>
+            <button class="submit-btn" onclick="verifyTickets()">Verificar Tickets</button>
+            
+            <p style="margin-top: 20px;"><strong>CONTÁCTANOS POR EL TLF DE SOPORTE:</strong> (0424)-1326694</p>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>COMPRAR TUS TICKETS</h2>
+        <p>Precio por ticket: $15</p>
+        
+        <div class="ticket-options">
+            <button class="ticket-btn" onclick="setTicketQuantity(2)">2 Tickets</button>
+            <button class="ticket-btn" onclick="setTicketQuantity(5)">5 Tickets</button>
+            <button class="ticket-btn" onclick="setTicketQuantity(10)">10 Tickets</button>
+            <button class="ticket-btn" onclick="setTicketQuantity(15)">15 Tickets</button>
+            <button class="ticket-btn" onclick="setTicketQuantity(20)">20 Tickets</button>
+        </div>
+        
+        <div class="calculator">
+            <div class="calculator-row">
+                <span class="calculator-label">Cantidad de Tickets:</span>
+                <div class="quantity-control">
+                    <button class="quantity-btn" onclick="decrementQuantity()">-</button>
+                    <input type="number" id="ticket-quantity" class="quantity-input" min="2" max="100" value="2" onchange="calculateTotal()">
+                    <button class="quantity-btn" onclick="incrementQuantity()">+</button>
+                </div>
+            </div>
+            
+            <div class="calculator-row">
+                <span class="calculator-label">Precio por Ticket:</span>
+                <input type="text" id="ticket-price" class="calculator-input" value="$15" readonly>
+            </div>
+            
+            <div class="calculator-row">
+                <span class="calculator-label">Tasa de cambio ($1):</span>
+                <input type="text" id="exchange-rate" class="calculator-input" value="150 Bs" readonly>
+            </div>
+            
+            <div class="total-display">
+                <p>Total en ($): <span id="total-usd">$30</span></p>
+                <p>Total en (Bs): <span id="total-bs">4.500 Bs</span></p>
+            </div>
+        </div>
+        
+        <h3>Formulario de Compra</h3>
+        <form id="purchase-form">
+            <div class="form-group">
+                <label for="full-name">Nombre y Apellido:</label>
+                <input type="text" id="full-name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirm-email">Confirmar Email:</label>
+                <input type="email" id="confirm-email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="tel" id="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="account-holder">Nombre del Titular de la Cuenta:</label>
+                <input type="text" id="account-holder" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-method">Método de Pago:</label>
+                
+                    <span style="pointer-events: none;">Selecciona un método de pago</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down h-4 w-4 opacity-50" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+                
+
+                    <select aria-hidden="true" tabindex="-1" style="position: absolute; border: 0px; width: 1px; height: 1px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; overflow-wrap: normal;"><option value="BINANCE-US">BINANCE-US</option><option value="PAGO MOVIL">PAGO MOVIL</option><option value="MERCADO PAGO">MERCADO PAGO</option><option value="ZELLE">ZELLE</option></select>
+                    <select id="payment-method" required onchange="showPaymentDetails()">
+                    <option value="BINANCE US">BINANCE US</option>
+                    <option value="PAGO MÓVIL">PAGO MÓVIL</option>
+                    <option value="CRIPTOMONEDAS">CRIPTOMONEDAS</option>
+                </select>
+            </div>
+
+            <div id="payment-details-container" style="display: none; margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                <h3 id="payment-method-title" style="margin-top: 0;"> Detalles de Pago</h3>
+                <div id="payment-details-content"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="reference-code">Código de Referencia:</label>
+                <input type="text" id="reference-code" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="payment-proof">Comprobante de Pago:</label>
+                <input type="file" id="payment-proof" class="file-upload" accept="image/*" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">Completar Compra</button>
+        </form>
+    </div>
+    
+    <script>
+        // Variables globales
+const ticketPrice = 15; // Precio por ticket en $
+const exchangeRate = 150; // Tasa de cambio Bs/$
+
+// Función para incrementar la cantidad
+function incrementQuantity() {
+    const quantityInput = document.getElementById('ticket-quantity');
+    let quantity = parseInt(quantityInput.value);
+    
+    // Verificar que no exceda el máximo (100)
+    if (quantity < 100) {
+        quantityInput.value = quantity + 1;
+        calculateTotal(); // Actualizar el total
+    }
+}
+
+// Función para decrementar la cantidad
+function decrementQuantity() {
+    const quantityInput = document.getElementById('ticket-quantity');
+    let quantity = parseInt(quantityInput.value);
+    
+    // Verificar que no sea menor al mínimo (2)
+    if (quantity > 2) {
+        quantityInput.value = quantity - 1;
+        calculateTotal(); // Actualizar el total
+    }
+}
+
+// Función para calcular el total
+function calculateTotal() {
+    const quantity = parseInt(document.getElementById('ticket-quantity').value);
+    const totalUSD = quantity * ticketPrice;
+    const totalBS = totalUSD * exchangeRate;
+    
+    // Actualizar los valores en pantalla
+    document.getElementById('total-usd').textContent = $${totalUSD};
+    document.getElementById('total-bs').textContent = ${totalBS.toLocaleString()} Bs;
+}
+
+// Función para establecer cantidad específica (desde los botones)
+function setTicketQuantity(quantity) {
+    document.getElementById('ticket-quantity').value = quantity;
+    calculateTotal();
+}
+
+// Evento para cambios manuales en el input
+document.getElementById('ticket-quantity').addEventListener('change', function() {
+    // Validar que esté entre 2 y 100
+    let value = parseInt(this.value);
+    if (isNaN(value) || value < 2) {
+        this.value = 2;
+    } else if (value > 100) {
+        this.value = 100;
+    }
+    calculateTotal();
+});
+
+// Inicializar el cálculo al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    calculateTotal();
+});
+        // Animación al cambiar valores
+function animateValueChange(element) {
+    element.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+        element.style.transform = 'scale(1)';
+    }, 200);
+}
+
+// Modificar calculateTotal() para incluir animación
+function calculateTotal() {
+    const quantity = parseInt(document.getElementById('ticket-quantity').value);
+    const totalUSD = quantity*ticketPrice;
+    const totalBS = totalUSD*exchangeRate;
+    
+    const usdElement = document.getElementById('total-usd');
+    const bsElement = document.getElementById('total-bs');
+    
+    usdElement.textContent = $${totalUSD};
+    bsElement.textContent = ${totalBS.toLocaleString()} Bs;
+    
+    animateValueChange(usdElement);
+    animateValueChange(bsElement);
+}
+        
+        document.getElementById('purchase-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const confirmEmail = document.getElementById('confirm-email').value;
+            
+            if (email !== confirmEmail) {
+                alert('Los correos electrónicos no coinciden. Por favor verifica.');
+                return;
+            }
+            
+            // Aquí iría la lógica para procesar la compra
+            alert('Compra procesada con éxito. Revisa tu correo para los detalles de tus tickets.');
+            this.reset();
+        });
+        
+        // Inicializar el cálculo
+        calculateTotal();
+
+        function showPaymentDetails() {
+            const method = document.getElementById('payment-method').value;
+            const container = document.getElementById('payment-details-container');
+            const content = document.getElementById('payment-details-content');
+    
+    if (!method) {
+        container.style.display = 'none';
+        return;
+    }
+    
+    container.style.display = 'block';
+    
+    // Datos de cada método de pago
+    const paymentMethods = {
+        'BINANCE US': `
+            <p><strong>Instrucciones para Binance US:</strong></p>
+            <p>1. Abre tu aplicación Binance US</p>
+            <p>2. Envía el pago a nuestra cuenta:</p>
+            <p><strong>ID de Binance:</strong> 123456</p>
+            <p><strong>Correo asociado:</strong> correo@gmail.com</p>
+            <p>3. Adjunta el comprobante en el formulario</p>
+            <p class="warning">* Verifica que el monto sea exacto</p>
+        `,
+        'PAGO MÓVIL': `
+            <p><strong>Instrucciones para Pago Móvil:</strong></p>
+            <p><strong>Banco:</strong> Banesco</p>
+            <p><strong>Número de teléfono:</strong> 0424-2860833</p>
+            <p><strong>Cédula:</strong> V-8.478.024/p>
+            <p><strong>Nombre:</strong> Empresa de Rifas, C.A.</p>
+            <p>1. Realiza el pago móvil por el monto exacto</p>
+            <p>2. Guarda el número de referencia</p>
+        `,
+        'CRIPTOMONEDAS': `
+            <p><strong>Instrucciones para Criptomonedas:</strong></p>
+            <p><strong>BTC:</strong> 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa</p>
+            <p><strong>ETH:</strong> 0x71C7656EC7ab88b098defB751B7401B5f6d8976F</p>
+            <p><strong>USDT (TRC20):</strong> TYmk9JpQYF1kP9pJZR1Jx7JZ1Jx7JZ1Jx7J</p>
+            <p>1. Envía exactamente el monto calculado</p>
+            <p>2. Adjunta el hash de la transacción como comprobante</p>
+            <p class="warning">* Las transacciones en cripto son irreversibles</p>
+        `
+    };
+    
+    document.getElementById('payment-method-title').textContent = Detalles para ${method};
+    content.innerHTML = paymentMethods[method];
+}
+    </script>
+</body>
+</html>

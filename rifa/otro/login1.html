@@ -1,0 +1,360 @@
+<html lang="es" class="light" style="color-scheme: light;">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/ee66224dc088af58.css" data-precedence="next">
+        <script>
+            // Función para manejar la selección de tickets y cálculo de precios
+            document.addEventListener('DOMContentLoaded', function() {
+                const ticketPrice = 15.00; // Precio por ticket en USD
+                const exchangeRate = 153.00; // Tasa de cambio USD a Bs
+                
+                // Elementos del DOM
+                const ticketQuantityInput = document.getElementById('ticketQuantityInput');
+                const incrementBtn = document.querySelector('.increment-btn');
+                const decrementBtn = document.querySelector('.decrement-btn');
+                const radioButtons = document.querySelectorAll('input[type="radio"][name="ticketQuantity"]');
+                const totalUsdElement = document.getElementById('totalUsd');
+                const totalBsElement = document.getElementById('totalBs');
+                const paymentMethodSelect = document.getElementById('paymentMethod');
+                const paymentMethodDetails = document.getElementById('paymentMethodDetails');
+                
+                // Métodos de pago y sus detalles
+                const paymentMethods = {
+                    'BINANCE-US': {
+                        Direccion: '0xd8f63f3b1cea684338dcc0522546e0a44fe308d9',
+                        details: 'Red: BEP20'
+                    },
+                    'PAGO MOVIL': {
+                        name: 'Pago Móvil',
+                        details: 'Teléfono: 0424-2860833\nCédula: V-8478024\nBanco: Banesco(0134)'
+                    },
+                    'CRIPTOMONEDAS': {
+                        name: 'CRIPTOMONEDAS',
+                        Direccion: 'bc1qvq3ehfr2h6vc6xqndkxpd0ds7t79cnpl3edkrt',
+                        details: 'Red: BEP20'
+                    },
+                                    };
+                
+                // Función para actualizar totales
+                function updateTotals(quantity) {
+                    const totalUsd = (quantity * ticketPrice).toFixed(2);
+                    const totalBs = (quantity * ticketPrice * exchangeRate).toFixed(2);
+                    
+                    totalUsdElement.textContent = $${totalUsd};
+                    totalBsElement.textContent = Bs ${totalBs};
+                }
+                
+                // Event listeners para botones de incremento/decremento
+                incrementBtn.addEventListener('click', function() {
+                    let quantity = parseInt(ticketQuantityInput.value) + 1;
+                    ticketQuantityInput.value = quantity;
+                    updateTotals(quantity);
+                    
+                    // Desmarcar todos los radio buttons cuando se usa el input manual
+                    radioButtons.forEach(radio => radio.checked = false);
+                });
+                
+                decrementBtn.addEventListener('click', function() {
+                    let quantity = parseInt(ticketQuantityInput.value);
+                    if (quantity > 1) {
+                        quantity -= 1;
+                        ticketQuantityInput.value = quantity;
+                        updateTotals(quantity);
+                        
+                        // Desmarcar todos los radio buttons cuando se usa el input manual
+                        radioButtons.forEach(radio => radio.checked = false);
+                    }
+                });
+                
+                // Event listener para cambios en el input manual
+                ticketQuantityInput.addEventListener('change', function() {
+                    let quantity = parseInt(this.value);
+                    if (isNaN(quantity) || quantity < 1) {
+                        quantity = 1;
+                        this.value = quantity;
+                    }
+                    updateTotals(quantity);
+                    
+                    // Desmarcar todos los radio buttons cuando se usa el input manual
+                    radioButtons.forEach(radio => radio.checked = false);
+                });
+                
+                // Event listeners para radio buttons
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.checked) {
+                            const quantity = parseInt(this.value);
+                            ticketQuantityInput.value = quantity;
+                            updateTotals(quantity);
+                        }
+                    });
+                });
+                
+                // Event listener para método de pago
+                paymentMethodSelect.addEventListener('change', function() {
+                    const selectedMethod = this.value;
+                    if (selectedMethod && paymentMethods[selectedMethod]) {
+                        paymentMethodDetails.innerHTML = `
+                            <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                                <h3 class="font-bold text-lg mb-2">Detalles para ${paymentMethods[selectedMethod].name}</h3>
+                                <p class="whitespace-pre-line">${paymentMethods[selectedMethod].details}</p>
+                            </div>
+                        `;
+                        paymentMethodDetails.style.display = 'block';
+                    } else {
+                        paymentMethodDetails.style.display = 'none';
+                    }
+                });
+                
+                // Inicializar con 2 tickets
+                updateTotals(2);
+            });
+        </script>
+    </head>
+    <body class="__className_e8ce0c">
+        <script src="script.js"></script>
+        <nav class="border-b">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16 sm:h-20">
+                    <a class="flex items-center space-x-2" href="/">
+                        <img alt="logo" loading="lazy" width="100" height="100" decoding="async" data-nimg="1" style="color:transparent" src="img/image">
+                    </a>
+                    <div class="hidden sm:flex items-center space-x-4">
+                        <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button" id="radix-«R2db»" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0">
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M12 2v2"></path>
+                                <path d="M12 20v2"></path>
+                                <path d="m4.93 4.93 1.41 1.41"></path>
+                                <path d="m17.66 17.66 1.41 1.41"></path>
+                                <path d="M2 12h2"></path>
+                                <path d="M20 12h2"></path>
+                                <path d="m6.34 17.66-1.41 1.41"></path>
+                                <path d="m19.07 4.93-1.41 1.41"></path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100">
+                                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                            </svg>
+                            <span class="sr-only">Toggle theme</span>
+                        </button>
+                    </div>
+                    <div class="sm:hidden">
+                        <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9" type="button" id="radix-«R3db»" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-6 w-6">
+                                <line x1="4" x2="20" y1="12" y2="12"></line>
+                                <line x1="4" x2="20" y1="6" y2="6"></line>
+                                <line x1="4" x2="20" y1="18" y2="18"></line>
+                            </svg>
+                            <span class="sr-only">Toggle menu</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="min-h-screen bg-background">
+            <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+                <h1 class="text-3xl sm:text-3xl md:text-4xl font-bold text-center mb-6 md:mb-8">COMBO EMPRENDEDOR</h1>
+                <div class="grid gap-6 md:grid-cols-2 lg:gap-8">
+                    <div class="rounded-xl border text-card-foreground shadow bg-background/50 backdrop-blur-sm border-muted">
+                        <div class="flex flex-col space-y-1.5 p-6 pb-2 md:pb-4">
+                            <div class="font-semibold tracking-tight text-2xl md:text-3xl">Detalles de la Rifa</div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="aspect-video relative mb-4">
+                                <img alt="COMBO EMPRENDEDOR" loading="lazy" decoding="async" data-nimg="fill" class="object-cover rounded-md" sizes="100vw" src="img/image1" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;">
+                            </div>
+                            <p class="mb-2">01 CARRYING  N822 año 2025 + 05 Motos Empire </p>
+                            <p class="font-semibold">Precio por ticket: $15.00</p>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border text-card-foreground shadow mt-6 bg-background/80 border-muted">
+                        <div class="flex flex-col space-y-1.5 p-6 pb-2">
+                            <div class="tracking-tight text-4xl font-bold">Verifica Tus TICKETS</div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div role="alert" class="relative w-full rounded-lg p-4 [&amp;&gt;svg~*]:pl-7 [&amp;&gt;svg+div]:translate-y-[-3px] [&amp;&gt;svg]:absolute [&amp;&gt;svg]:left-4 [&amp;&gt;svg]:top-4 [&amp;&gt;svg]:text-foreground bg-background text-foreground mb-6 border-primary border-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-triangle-alert h-5 w-5">
+                                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                                    <path d="M12 9v4"></path>
+                                    <path d="M12 17h.01"></path>
+                                </svg>
+                                
+                                <h5 class="mb-1 tracking-tight text-lg font-semibold">SOPORTE TIENE 24 hrs PARA RESPONDERTE Y APROBAR TU COMPRA</h5>
+                                
+                                <div class="[&amp;_p]:leading-relaxed text-base mt-2 space-y-2">
+                                     <p class="font-medium text-lg"> ¿No recibiste tus tickets por correo? ¡VERIFÍCALOS AQUÍ!</p>
+                                     <p class="mb-10">Simplemente ingresa el correo electrónico que usaste para la compra en el campo de abajo y haz clic en "Verificar Tickets" para ver los números asociados a tu participación en esta rifa.</p>
+                                     
+                                     <div class="h-[80px]">
+                                        <p class="mt-10 text-md font-semibold"> CONTÁCTANOS POR EL TLF DE SOPORTE: (0424)-8618003</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <form class="space-y-4">
+                                <div class="space-y-2">
+                                    <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-base" for="verificationEmail">Email para Verificar Tickets</label> 
+                                    <div class="flex space-x-2">
+                                        <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm flex-1 text-base" id="verificationEmail" placeholder="Ingresa tu email de compra aquí" type="email" value="">
+                                        <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 rounded-md px-8" type="submit"> Verificar Tickets</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="rounded-xl border text-card-foreground shadow bg-background/50 backdrop-blur-sm border-muted">
+                        <div class="flex flex-col space-y-1.5 p-6 pb-2 md:pb-4">
+                            <div class="font-semibold tracking-tight text-2xl md:text-3xl">Comprar Tickets</div>
+                        </div>
+                        <div class="p-6 pt-0"><form class="space-y-4">
+                            <div>
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="ticketQuantity">Cantidad de Tickets</label>
+                                <div role="radiogroup" aria-required="false" dir="ltr" class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mt-2" id="ticketQuantity" tabindex="0" style="outline: none;">
+                                    <div class="flex items-center justify-center">
+                                        <input type="radio" name="ticketQuantity" id="quantity-2" value="2" checked class="hidden">
+                                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-center w-full p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors bg-primary text-primary-foreground border-primary dark:border-gray-600" for="quantity-2">
+                                            <div class="block">
+                                                <div class="w-full text-base sm:text-lg font-semibold">2</div>
+                                                <div class="w-full text-xs sm:text-sm">tickets</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-center">
+                                        <input type="radio" name="ticketQuantity" id="quantity-5" value="5" class="hidden">
+                                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-center w-full p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground dark:border-gray-600" for="quantity-5">
+                                            <div class="block">
+                                                <div class="w-full text-base sm:text-lg font-semibold">5</div>
+                                                <div class="w-full text-xs sm:text-sm">tickets</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-center">
+                                        <input type="radio" name="ticketQuantity" id="quantity-10" value="10" class="hidden">
+                                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-center w-full p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground dark:border-gray-600" for="quantity-10">
+                                            <div class="block">
+                                                <div class="w-full text-base sm:text-lg font-semibold">10</div>
+                                                <div class="w-full text-xs sm:text-sm">tickets</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-center">
+                                        <input type="radio" name="ticketQuantity" id="quantity-15" value="15" class="hidden">
+                                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-center w-full p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground dark:border-gray-600" for="quantity-15">
+                                            <div class="block">
+                                                <div class="w-full text-base sm:text-lg font-semibold">15</div>
+                                                <div class="w-full text-xs sm:text-sm">tickets</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="flex items-center justify-center">
+                                        <input type="radio" name="ticketQuantity" id="quantity-20" value="20" class="hidden">
+                                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 flex flex-col items-center justify-center w-full p-3 sm:p-4 border rounded-lg cursor-pointer transition-colors bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground dark:border-gray-600" for="quantity-20">
+                                            <div class="block">
+                                                <div class="w-full text-base sm:text-lg font-semibold">20</div>
+                                                <div class="w-full text-xs sm:text-sm">tickets</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="rounded-xl border bg-card text-card-foreground shadow w-full">
+                                <div class="flex flex-col space-y-1.5 p-6">
+                                    <div class="font-semibold leading-none tracking-tight">Conversor USD a Bs</div>
+                                </div>
+                                <div class="p-6 pt-0">
+                                    <div class="space-y-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 decrement-btn" type="button">-</button>
+                                            <input class="flex h-9 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm w-16 text-center" id="ticketQuantityInput" min="2" type="number" value="2">
+                                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 increment-btn" type="button">+</button>
+                                        </div>
+<script>
+document.querySelectorAll('.quantity-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const input = document.getElementById('ticketQuantity');
+        let value = parseInt(input.value) || 0;
+        
+        if(this.dataset.action === 'increment') {
+            value++;
+        } else {
+            value = Math.max(1, value - 1);
+        }
+        
+        input.value = value;
+    });
+});
+</script>
+                                        
+                                        <div class="bg-muted/50 p-4 rounded-lg space-y-2">
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-medium">Total (USD):</span>
+                                                <span class="text-xl font-bold" id="totalUsd">$30.00</span>
+                                            </div>
+                                            <div class="flex justify-between items-center">
+                                                <span class="font-medium">Total (Bs):</span>
+                                                <span class="text-xl font-bold text-primary" id="totalBs">Bs 4590.00</span>
+                                            </div>
+                                        </div>
+                                        <p class="text-sm text-muted-foreground text-center">Tasa de cambio: 1 USD = 153.00 Bs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="name">Nombre y apellido*</label>
+                                    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="name" type="text" name="name">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="email">Email</label>
+                                    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="email" type="email" name="email">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="confirmEmail">Confirmar Email</label>
+                                    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="confirmEmail" type="email" name="confirmEmail">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="phone">Teléfono</label>
+                                    <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="phone" type="tel" name="phone">
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="accountName">Nombre del Titular de la cuenta</label>
+                                <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="accountName" type="text" name="accountName">
+                            </div>
+                            <div>
+                                <label class="font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-2xl" for="paymentMethod">Método de Pago</label>
+                                <select class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="paymentMethod" name="paymentMethod">
+                                    <option value="">Selecciona un método de pago</option>
+                                    <option value="BINANCE-US">BINANCE-US</option>
+                                    <option value="PAGO MOVIL">PAGO MOVIL</option>
+                                    <option value="MERCADO PAGO">CRIPTOMONEDAS</option>
+                                </select>
+                                <!-- Aquí se mostrarán los datos -->
+<div id="datos-pago" style="margin-top: 20px; display: none;">
+  <h3>Detalles del pago:</h3>
+  <div id="contenido-datos"></div>
+</div>
+                                <div id="paymentMethodDetails" style="display: none;"></div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="referenceCode">Código de Referencia</label>
+                                <p class="text-md mb-2">⚠️ Importante: Coloque la referencia completa del pago (número de transacción, referencia bancaria, etc.)</p>
+                                <input class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" id="referenceCode" placeholder="Ej: 123456789 o REF-ABC123" type="text" name="referenceCode">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="paymentProof">Comprobante de Pago</label>
+                                <div class="flex items-center space-x-2">
+                                    <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full" type="button">Agregar imagen</button>
+                                    <input class="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm hidden" id="paymentProof" accept="image/*" type="file">
+                                </div>
+                            </div>
+                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2 w-full" type="submit">Comprar Tickets</button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
